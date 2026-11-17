@@ -25,7 +25,6 @@ public class EmployeeManager {
             if (employeeLine != null) {
                 System.out.println(employeeLine);
                 String[] employeeNames = employeeLine.split(Constants.COMMA_DELIMITER);
-                // Task #6: Removed temporary randomIndex variable
                 System.out.println(employeeNames[new Random().nextInt(employeeNames.length)]);
             }
             System.out.println(Constants.MSG_LOADED);
@@ -37,13 +36,21 @@ public class EmployeeManager {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
-                boolean isFound = false;
+                String targetEmployee = args[0].substring(1).trim();
+                boolean employeeFound = false;
+
+                // Task #7: Straightforward search logic with explicit found/not-found response
                 for (String employeeName : employeeLine.split(Constants.COMMA_DELIMITER)) {
-                    if (employeeName.equals(args[0].substring(1))) {
-                        System.out.println(Constants.MSG_FOUND);
-                        isFound = true;
+                    if (employeeName.trim().equalsIgnoreCase(targetEmployee)) {
+                        employeeFound = true;
                         break;
                     }
+                }
+
+                if (employeeFound) {
+                    System.out.println(Constants.MSG_FOUND);
+                } else {
+                    System.out.println(Constants.MSG_NOT_FOUND);
                 }
             }
             System.out.println(Constants.MSG_LOADED);
