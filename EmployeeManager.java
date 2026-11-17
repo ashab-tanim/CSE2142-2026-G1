@@ -28,11 +28,11 @@ public class EmployeeManager {
                 System.out.println(employeeNames[new Random().nextInt(employeeNames.length)]);
             }
             System.out.println(Constants.MSG_LOADED);
-        } else if (args[0].contains(Constants.FLAG_ADD)) {
+        } else if (args[0].startsWith(Constants.FLAG_ADD)) {
             System.out.println(Constants.MSG_LOADING);
             appendToFile(Constants.COMMA_SPACE + args[0].substring(1));
             System.out.println(Constants.MSG_LOADED);
-        } else if (args[0].contains(Constants.FLAG_SEARCH)) {
+        } else if (args[0].startsWith(Constants.FLAG_SEARCH)) {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
@@ -53,17 +53,16 @@ public class EmployeeManager {
                 }
             }
             System.out.println(Constants.MSG_LOADED);
-        } else if (args[0].contains(Constants.FLAG_COUNT)) {
+        } else if (args[0].equals(Constants.FLAG_COUNT)) {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
-                // Task #8: Simplified word counting logic using split
                 String[] words = employeeLine.trim().split("\\s+");
                 int wordCount = employeeLine.trim().isEmpty() ? 0 : words.length;
                 System.out.println(wordCount + " word(s) found " + employeeLine.length());
             }
             System.out.println(Constants.MSG_LOADED);
-        } else if (args[0].contains(Constants.FLAG_UPDATE)) {
+        } else if (args[0].startsWith(Constants.FLAG_UPDATE)) {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
@@ -77,7 +76,7 @@ public class EmployeeManager {
                 writeToFile(String.join(Constants.COMMA_DELIMITER, employeeNames));
             }
             System.out.println(Constants.MSG_UPDATED);
-        } else if (args[0].contains(Constants.FLAG_DELETE)) {
+        } else if (args[0].startsWith(Constants.FLAG_DELETE)) {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
@@ -86,6 +85,9 @@ public class EmployeeManager {
                 writeToFile(String.join(Constants.COMMA_DELIMITER, employeeList));
             }
             System.out.println(Constants.MSG_DELETED);
+        } else {
+            // Task #9: Handle invalid argument
+            System.out.println(Constants.MSG_INVALID_ARGS);
         }
     }
 

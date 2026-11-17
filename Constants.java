@@ -22,5 +22,6 @@ public class Constants {
     public static final String MSG_DELETED = "Data Deleted.";
     public static final String MSG_FOUND = "Employee found!";
     public static final String MSG_NOT_FOUND = "Employee not found.";
+    public static final String MSG_INVALID_ARGS = "Error: Invalid argument provided.";
     public static final String MSG_WRONG_ARG_COUNT = "Error: Please provide exactly one argument.";
 }
