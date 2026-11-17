@@ -39,7 +39,6 @@ public class EmployeeManager {
                 String targetEmployee = args[0].substring(1).trim();
                 boolean employeeFound = false;
 
-                // Task #7: Straightforward search logic with explicit found/not-found response
                 for (String employeeName : employeeLine.split(Constants.COMMA_DELIMITER)) {
                     if (employeeName.trim().equalsIgnoreCase(targetEmployee)) {
                         employeeFound = true;
@@ -58,20 +57,10 @@ public class EmployeeManager {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
-                char[] contentCharacters = employeeLine.toCharArray();
-                boolean isInsideWord = false;
-                int wordCount = 0;
-                for (char character : contentCharacters) {
-                    if (character == ' ') {
-                        if (!isInsideWord) {
-                            wordCount++;
-                            isInsideWord = true;
-                        } else {
-                            isInsideWord = false;
-                        }
-                    }
-                }
-                System.out.println(wordCount + " word(s) found " + contentCharacters.length);
+                // Task #8: Simplified word counting logic using split
+                String[] words = employeeLine.trim().split("\\s+");
+                int wordCount = employeeLine.trim().isEmpty() ? 0 : words.length;
+                System.out.println(wordCount + " word(s) found " + employeeLine.length());
             }
             System.out.println(Constants.MSG_LOADED);
         } else if (args[0].contains(Constants.FLAG_UPDATE)) {
