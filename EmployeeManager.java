@@ -14,8 +14,7 @@ public class EmployeeManager {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
-                String[] employeeNames = employeeLine.split(Constants.COMMA_DELIMITER);
-                for (String employeeName : employeeNames) {
+                for (String employeeName : employeeLine.split(Constants.COMMA_DELIMITER)) {
                     System.out.println(employeeName);
                 }
             }
@@ -26,27 +25,24 @@ public class EmployeeManager {
             if (employeeLine != null) {
                 System.out.println(employeeLine);
                 String[] employeeNames = employeeLine.split(Constants.COMMA_DELIMITER);
-                Random randomNumberGenerator = new Random();
-                int randomIndex = randomNumberGenerator.nextInt(employeeNames.length);
-                System.out.println(employeeNames[randomIndex]);
+                // Task #6: Removed temporary randomIndex variable
+                System.out.println(employeeNames[new Random().nextInt(employeeNames.length)]);
             }
             System.out.println(Constants.MSG_LOADED);
         } else if (args[0].contains(Constants.FLAG_ADD)) {
             System.out.println(Constants.MSG_LOADING);
-            String nameToAdd = args[0].substring(1);
-            appendToFile(Constants.COMMA_SPACE + nameToAdd);
+            appendToFile(Constants.COMMA_SPACE + args[0].substring(1));
             System.out.println(Constants.MSG_LOADED);
         } else if (args[0].contains(Constants.FLAG_SEARCH)) {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
-                String[] employeeNames = employeeLine.split(Constants.COMMA_DELIMITER);
                 boolean isFound = false;
-                String targetEmployee = args[0].substring(1);
-                for (int index = 0; index < employeeNames.length && !isFound; index++) {
-                    if (employeeNames[index].equals(targetEmployee)) {
+                for (String employeeName : employeeLine.split(Constants.COMMA_DELIMITER)) {
+                    if (employeeName.equals(args[0].substring(1))) {
                         System.out.println(Constants.MSG_FOUND);
                         isFound = true;
+                        break;
                     }
                 }
             }
@@ -89,10 +85,8 @@ public class EmployeeManager {
             System.out.println(Constants.MSG_LOADING);
             String employeeLine = readFromFile();
             if (employeeLine != null) {
-                String[] employeeNames = employeeLine.split(Constants.COMMA_DELIMITER);
-                String targetEmployee = args[0].substring(1);
-                List<String> employeeList = new ArrayList<>(Arrays.asList(employeeNames));
-                employeeList.remove(targetEmployee);
+                List<String> employeeList = new ArrayList<>(Arrays.asList(employeeLine.split(Constants.COMMA_DELIMITER)));
+                employeeList.remove(args[0].substring(1));
                 writeToFile(String.join(Constants.COMMA_DELIMITER, employeeList));
             }
             System.out.println(Constants.MSG_DELETED);
